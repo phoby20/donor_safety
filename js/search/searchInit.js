@@ -7,6 +7,7 @@ $(document).ready(function(){
 
         console.log("bmh", objFullTextSearch.bmh);
         console.log("pbsch", objFullTextSearch.pbsch);
+        console.log("case_place", objFullTextSearch.case_place);
         console.log("keyword", objFullTextSearch.keyword);
 
 
@@ -14,6 +15,7 @@ $(document).ready(function(){
 
      && objFullTextSearch.bmh    //bmh
      && objFullTextSearch.pbsch    //pbsch
+     && objFullTextSearch.case_place    //case_place
 
      && objFullTextSearch.refine1    //形態
      && objFullTextSearch.refine2    //作成年代
@@ -29,6 +31,7 @@ $(document).ready(function(){
 
         objFullTextSearch.bmh.join(" "),
         objFullTextSearch.pbsch.join(" "),
+        objFullTextSearch.case_place.join(" "),
 
         objFullTextSearch.refine1.join(" "),
         objFullTextSearch.refine2.join(" "),

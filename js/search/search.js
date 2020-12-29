@@ -41,6 +41,7 @@ function FullTextSearch()
     this.param_name = 'keyword';
     this.param_name2 = 'bmh'; //bmh 検索
     this.param_name3 = 'pbsch'; //pbsch 検索
+    this.param_name4 = 'cases'; //case_place 検索
 
     this.param_name_refine1 = 'refine1';    //絞り込み用パラメータ（仮）
     this.param_name_refine2 = 'refine2';    //絞り込み用パラメータ（仮）
@@ -122,6 +123,7 @@ FullTextSearch.prototype = {
         this.param   = keyword;
         this.bmh   = keyword; //bmh 検索
         this.pbsch   = keyword;  //pbsch 検索
+        this.case_place   = keyword;  //case_place 検索
 
         this.param_refine1   = keyword;
         this.param_refine2   = keyword;
@@ -135,6 +137,7 @@ FullTextSearch.prototype = {
         this.keyword = this.getParam(this.param);
         this.bmh = this.getParam2(this.bmh); //bmh 検索
         this.pbsch = this.getParam3(this.pbsch);  //pbsch 検索
+        this.case_place = this.getParam4(this.case_place);  //case_place 検索
         
 
         this.refine1 = this.getParam_refine1(this.param_refine1);        //絞り込みキーワード取り出し
@@ -187,7 +190,6 @@ FullTextSearch.prototype = {
         s = s.replace(/\+/g, " ");
         var rg = new RegExp('[\?&]' + this.param_name2 + '\=([^&]*)');
         if (s.match(rg)) s = RegExp.$1;
-        // console.log(s);
 
         switch (this.charset) {
         case 'UTF-8':
@@ -212,6 +214,31 @@ FullTextSearch.prototype = {
         if (!s) return null;
         s = s.replace(/\+/g, " ");
         var rg = new RegExp('[\?&]' + this.param_name3 + '\=([^&]*)');
+        if (s.match(rg)) s = RegExp.$1;
+
+        switch (this.charset) {
+        case 'UTF-8':
+            s = UnescapeUTF8(s);
+            break;
+        case 'SJIS':
+            s = UnescapeSJIS(s);
+            break;
+        case 'EUC':
+            s = UnescapeEUCJP(s);
+            break;
+        }
+
+        return this.splitKeyword(s);
+    },
+
+
+    
+    // cases
+    getParam4 : function (s)
+    {
+        if (!s) return null;
+        s = s.replace(/\+/g, " ");
+        var rg = new RegExp('[\?&]' + this.param_name4 + '\=([^&]*)');
         if (s.match(rg)) s = RegExp.$1;
 
         switch (this.charset) {
@@ -603,19 +630,21 @@ FullTextSearch.prototype = {
     ,
 
     // 一般キーワードが入る
-    do_find : function (keyword,bmh,pbsch,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
+    do_find : function (keyword,bmh,pbsch,cases,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
     {
         // console.log(keyword);
 
         if (this.lastquery == keyword) return;
         if (this.lastquery == bmh) return; //bmh 検索時
         if (this.lastquery == pbsch) return; //pbsch 検索時
+        if (this.lastquery == cases) return; //cases 検索時
 
         this.lastquery = keyword;
         this.lastquery = bmh; //bmh 検索時
         this.lastquery = pbsch; //pbsch 検索時
+        this.lastquery = cases; //cases 検索時
 
-        var re = this.find(keyword,bmh,pbsch,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3);
+        var re = this.find(keyword,bmh,pbsch,cases,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3);
 
         this.set_st(re);
 
@@ -624,7 +653,7 @@ FullTextSearch.prototype = {
         this.view(re);
     }
     ,
-    find : function (keyword,bmh,pbsch,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
+    find : function (keyword,bmh,pbsch,cases,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
     {
 
         if (!refine1) return [];
@@ -639,6 +668,7 @@ FullTextSearch.prototype = {
         var query = null;
         var query2 = null; //bmh 検索時
         var query3 = null; //pbsch 検索時
+        var query4 = null; //cases 検索時
 
         if (keyword != ""){
         //キーワード入力ありの場合
@@ -655,6 +685,17 @@ FullTextSearch.prototype = {
         if (pbsch != ""){
             query3= this.splitKeyword(pbsch);
         }
+
+        
+        //cases入力ありの場合
+        if (cases != ""){
+            query4= this.splitKeyword(cases);
+        }
+
+
+
+
+        // -------------------------------여기까지 수정했음 -----------------------------------------
 
         var query_refine1 = this.splitKeyword(refine1);    //形態： 値がない場合が未対応。refine1=nullを、絶対入れる事。
         var query_refine2 = this.splitKeyword(refine2);    //作成年代： 値がない場合が未対応。refine2=nullを、絶対入れる事。
@@ -680,18 +721,28 @@ FullTextSearch.prototype = {
         var reg_g3  = [];
         var reg_s3  = [];
 
+        
+        // cases Search 変数宣言
+        var reg4    = [];
+        var reg_g4  = [];
+        var reg_s4  = [];
+
+
         var result_original = [];
         var result = [];
         var result2 = [];　// BMH Search 変数宣言
         var result3 = [];　// PBSCH Search 変数宣言
+        var result4 = [];　// cases Search 変数宣言
 
         var aimai;
         var aimai2;　// BMH Search 変数宣言
         var aimai3;　// PBSCH Search 変数宣言
+        var aimai4;　// cases Search 変数宣言
 
         var aimai_array = [];
         var aimai_array2 = [];　// BMH Search 変数宣言
         var aimai_array3 = [];　// PBSCH Search 変数宣言
+        var aimai_array4 = [];　// cases Search 変数宣言
 
         if (query_yearfrom == 'null' && query_yearto != 'null'){
             query_yearfrom = '00000000';
@@ -792,6 +843,37 @@ FullTextSearch.prototype = {
 
 
 
+            
+        // -------------- cases入力ありの場合 --------------
+        if (query4) {
+            query4 = this.reg_optimize(query4);
+                for (var i = 0; i < query4.length; i++) {
+                    if (query4[i] == '') continue;
+                    if (this.zenhan) {
+                        aimai4 = this.ignore_ULHZ(query4[i]);
+                    } else {
+                        aimai4 = query4[i].replace(/[a-zA-Z]/g, this.ignore_case);
+                        aimai4 = this.ignore_number(aimai4);
+                    }
+                    aimai_array4.push(aimai4);
+                    try {
+                        var qr4   = new RegExp(aimai4);
+                        var qr_g4 = new RegExp(aimai4, 'g');
+                        reg4.push(qr4);
+                        reg_g4.push(qr_g4);
+                    } catch (e) {
+                        reg4.push(/(.)/);
+                    }
+                }
+                // console.log(reg_g4);
+            } else {
+                reg4.push(/(.)/);
+            }
+
+
+
+
+
 
 
         //キーワード複数指定の場合
@@ -855,6 +937,27 @@ FullTextSearch.prototype = {
         }
 
 
+        
+        // ------------ cases複数指定の場合 ------------
+        if (aimai_array4.length > 1) {
+            for (var i = 0, aimai_length4 = aimai_array4.length; i < aimai_length4; i++) {
+                var tmp4 = [aimai_array4[i]];
+                for (var j = 0; j < aimai_length4; j++) {
+                    if (i == j) continue;
+                    tmp4.push(aimai_array4[j]);
+                    reg_s4[reg_s4.length] = {
+                        reg4   : new RegExp(tmp4.join('')),    //joinで、
+                        reg_g4 : new RegExp(tmp4.join(''), 'g'),
+                        len   : tmp4.length,
+                        point : 10
+                    };
+                }
+            }
+            // console.log(reg_g4);
+        }
+
+
+
 
 
 
@@ -863,22 +966,26 @@ FullTextSearch.prototype = {
 
         var d_key2 = ['type']; //BMH　検索時！
         var d_key3 = ['state']; //PBSCH　検索時！
+        var d_key4 = ['place']; //cases　検索時！
 
         var d_pnt = [20,       1,       1];
         var d_pnt_pdf = 5;
 
         var d_pnt2 = []; //BMH　検索時！
         var d_pnt3 = []; ////PBSCH　検索時！
+        var d_pnt4 = []; ////cases　検索時！
 
         //検索メイン（dataset.lengthが、DBのデータ数）
         for (var i = 0, d_len = this.dataset.length; i < d_len; i++) {
             var r, rg;
             var r2, rg2; //BMH 検索時
             var r3, rg3; //PBSCH 検索時
+            var r4, rg4; //cases 検索時
 
             var d_length = 0;
             var d_length2 = 0;//BMH 検索時
             var d_length3 = 0;//PBSCH 検索時
+            var d_length4 = 0;//cases 検索時
 
             var rg_len = 0;
             var rg_pos = null;
@@ -900,9 +1007,19 @@ FullTextSearch.prototype = {
             var rg_cnt3 = 0;
             var rg_pnt3 = 0;
 
+            
+            //case 検索時
+            var rg_len4 = 0;
+            var rg_pos4 = null;
+            var rg_per4 = 0;
+            var rg_cnt4 = 0;
+            var rg_pnt4 = 0;
+
+
             var res = [];
             var res2 = [];//BMH 検索時
             var res3 = [];//PBSCH 検索時
+            var res4 = [];//cases 検索時
 
 
             var idx_len_title = [];
@@ -1001,6 +1118,40 @@ FullTextSearch.prototype = {
                             rg3 = this.dataset[i][d_key3[p]].match(reg_s3[k].reg_g3);
                             rg_pnt3 += (rg3.length + reg_s3[k].len) * reg_s3[k].point;
                             res3.push([r3, d_key3[p]]);
+                        }
+                    }
+                }
+            }
+            // console.log(this.dataset);
+
+
+
+
+            //casesの複数指定の場合
+            if (reg_s4.length > 0) {
+                for (var p = 0; p < d_key4.length; p++) {
+                    for (var k = 0; k < reg_s4.length; k++) {    //reg_sは、
+
+                        r4 = this.dataset[i][d_key4[p]].match(reg_s4[k].reg4);    //DB[n個目][項目]が、aimai_arrayの結合
+
+                        // console.log(r2);
+                        //（キーワード以外の）検索条件と一致しているか判定
+                        var is_target4 = this.judge_target(
+                                i,
+                                query_refine1,
+                                query_refine2,
+                                query_yearfrom,
+                                query_yearto,
+                                query_hasimage,
+                                query_class1,
+                                query_class2,
+                                query_class3
+                            );
+
+                        if (r4 && is_target4 && r4.index != -1) {
+                            rg4 = this.dataset[i][d_key4[p]].match(reg_s4[k].reg_g4);
+                            rg_pnt4 += (rg4.length + reg_s4[k].len) * reg_s4[k].point;
+                            res4.push([r4, d_key4[p]]);
                         }
                     }
                 }
@@ -1181,6 +1332,61 @@ FullTextSearch.prototype = {
 
 
 
+            
+
+            
+            // --------------- cases 1語ごとの処理 ---------------
+            for (var j = 0; j < reg4.length; j++) {
+                var chk4 = false;
+
+                //DB、1件の各項目ごとの処理
+                for (var k = 0; k < d_key4.length; k++) {
+                    d_length4 += this.dataset[i][d_key4[k]].length;
+
+                    if (cases != ""){
+                    //キーワード入力ありの場合
+                        r4 = this.dataset[i][d_key4[k]].match(reg4[j]);
+                        // console.log(r3);
+                    } else {
+                    //キーワード入力なしの場合
+                    // !!----------- 여기를 'r2'로 바꾸면 에러 발생 ---------------!!
+                        r = this.dataset[i][d_key4[k]];
+                        // console.log(r);
+                    }
+
+                    //（キーワード以外の）検索条件と一致しているか判定
+                    var is_target4 = this.judge_target(
+                            i,
+                            query_refine1,
+                            query_refine2,
+                            query_yearfrom,
+                            query_yearto,
+                            query_hasimage,
+                            query_class1,
+                            query_class2,
+                            query_class3
+                        );
+
+                    if (r4 && is_target4 && r4.index != -1) {
+                        rg4 = this.dataset[i][d_key4[k]].match(reg_g4[j]);
+                        rg_len4 += rg4.length;
+                        rg_cnt4 += rg4.length * r4[0].length;
+                        if (rg_pos4 == null || rg_pos4 > r4.index) rg_pos4 = r4.index;
+                        rg_pnt4 += d_pnt4[k] * rg4.length;
+                        if (this.dataset[i].type == 'pdf') rg_pnt4 += d_pnt_pdf4;
+                        res4.push([r4, d_key4[k]]);
+                        chk4 = true;
+                    }
+                }
+                if (this.type && !chk4) {
+                    res4 = [];
+                    break;
+                }
+                // console.log(res3);
+            }
+            // console.log(res4);
+
+
 
 
 
@@ -1201,17 +1407,20 @@ FullTextSearch.prototype = {
             result[result.length] = [i, idx_len_title, idx_len_body, idx_len_age, rg_len, rg_pos, rg_per, rg_pnt];
             result_original[result.length] = [i, idx_len_title, idx_len_body, idx_len_age, rg_len, rg_pos, rg_per, rg_pnt];
             // console.log(result);
+            // console.log(res3.length);
 
         
             // BMH 検索時
-            if (!res2 || res2.length == 0 || !res3 || res3.length == 0) {
+            if (!res2 || res2.length == 0 || !res3 || res3.length == 0 || !res4 || res4.length == 0) {
+            // if (!res2 || res2.length == 0 || !res3 || res3.length == 0) {
                 continue;
-            } else if (res2 || res2.length <= 1 && res3 || res3.length <= 1) {
+            } else if (res2 || res2.length <= 1 && res3 || res3.length <= 1 && res4 || res4.length <= 1) {
                 rg_per2 = Math.round(rg_cnt2 / (d_length2) * 100000) / 1000;
                 result2[result2.length] = [i, rg_len2, rg_pos2, rg_per2, rg_pnt2];
                 rg_per3 = Math.round(rg_cnt3 / (d_length3) * 100000) / 1000;
-                // console.log(res3);
                 result3[result3.length] = [i, rg_len3, rg_pos3, rg_per3, rg_pnt3];
+                rg_per4 = Math.round(rg_cnt4 / (d_length4) * 100000) / 1000;
+                result4[result4.length] = [i, rg_len4, rg_pos4, rg_per4, rg_pnt4];
             }
             
 
@@ -1226,8 +1435,7 @@ FullTextSearch.prototype = {
             // result3[result3.length] = [i, rg_len3, rg_pos3, rg_per3, rg_pnt3];
 
         }
-        // console.log(result2);
-        // console.log(result3);
+        // console.log(result4);
 
 
 
@@ -1296,6 +1504,8 @@ FullTextSearch.prototype = {
             }
             
         }
+
+        
         if (result.length == 1 ) {
             result = result;
         } else {
@@ -1317,6 +1527,7 @@ FullTextSearch.prototype = {
 
         if ( result.length == 0 ) {
             listFilter(result_original, result3);
+
         } else if (result.length == 1 && result3.length != 0) {
             // console.log('result : ', result);
             result = result;
@@ -1329,9 +1540,9 @@ FullTextSearch.prototype = {
                 for (var i = 0; i <= result.length; i++) {
                     delete result[i];
                 }
-            } else if (keyword && !bmh && !pbsch) {
+            } else if (keyword && !bmh && !pbsch && !cases) {
                 result = result;
-            }　else if (keyword && bmh && pbsch) {
+            }　else if (keyword && bmh && pbsch && cases) {
                 for (var i = 0; i <= result.length; i++) {
                     delete result[i];
                 }
@@ -1350,6 +1561,7 @@ FullTextSearch.prototype = {
 
         console.log('result : ', result)
         console.log('result3 : ', result3)
+        console.log('result4 : ', result4)
 
 
 
@@ -1547,22 +1759,6 @@ FullTextSearch.prototype = {
 
         table_header = "";
 
-        table_header   += "<div class='row'>";
-        
-        table_header   += "<div class='eight columns' style='font-size:20px;'>";
-        table_header   += "<span class='info-head'>　　内容</span>";
-        table_header   += "</div>";
-
-        table_header   += "<div class='two columns' style='text-align: center; font-size:20px;''>";
-        table_header   += "<span class='info-head'>BMH</span>";
-        table_header   += "</div>";
-
-        table_header   += "<div class='two columns' style='text-align: center; font-size:20px;''>";
-        table_header   += "<span class='info-head'>PBSCH</span>";
-        table_header   += "</div>";
-
-        table_header   += "</div>";
-        table_header   += "<hr>";
         this.re.innerHTML += table_header;
 
         for (var i = (offset - 1) * this.max, r_len = r.length; i < r_len; i++) {
@@ -1583,8 +1779,17 @@ FullTextSearch.prototype = {
 
             buf   += "<div class='row'>";
 
+            // buf   += "<div class='two columns thumbnail-block'>";
 
-            buf   += "<div class='eight columns text-block'>";
+            // if (d.image =="" || d.image =="noimage") {
+            //     buf   += "<img class='thumbnail-img' src='images/common/noimage.gif' alt='画像はありません'>";
+            // } else {
+            //     buf   += "<img class='thumbnail-img' src='images/" + d.image + "' alt=''>";
+            // }
+
+            // buf   += "</div>";
+
+            buf   += "<div class='twelve columns text-block'>";
 
             buf   += "<dl>";
 
@@ -1616,34 +1821,30 @@ FullTextSearch.prototype = {
             // }
 
             buf += "<p class='itemkey'>";
-            buf += "<span class='itemkey-head'>[項目]　</span>";
-            if (d.class1) {
-                buf += "<span class='info-data'>" + d.class1 + "</span>";
-                if (d.class2) {
-                    buf += '　>　'
-                    buf += "<span class='info-data'>" + d.class2 + "</span>";
-                }
+            buf += "<span class='itemkey-head'>[資料番号]</span>";
+            if (d.itemkey) {
+                buf += "<span class='itemkey-data'>" + d.itemkey + "</span>";
             } else {
                 buf += "<span class='itemkey-data'> ― </span>";
             }
             buf += "</p>";
 
             buf += "<p class='info'>";
-            // buf += "<span class='info-head'>[PBSCH]</span>";
+            // buf += "<span class='info-head'>[作成日]</span>";
 
-            // if (d.state) {
-            //     buf += "<span class='info-data'>" + d.state + "</span>";
+            // if (d.year) {
+            //     buf += "<span class='info-data'>" + d.year + "</span>";
             // } else {
             //     buf += "<span class='info-data'> ― </span>";
             // }
 
-            // buf += "<span class='info-head'>[BMH]</span>";
+            buf += "<span class='info-head'>[採取方法]</span>";
 
-            // if (d.type) {
-            //     buf += "<span class='info-data'>" + d.type + "</span>";
-            // } else {
-            //     buf += "<span class='info-data'> ― </span>";
-            // }
+            if (d.type) {
+                buf += "<span class='info-data'>" + d.type + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
 
             // buf += "<span class='info-head'>[大分類]</span>";
             // if (d.class1) {
@@ -1663,12 +1864,19 @@ FullTextSearch.prototype = {
             // } else {
             //     buf += "<span class='info-data'> ― </span>";
             // }
-            // buf += "<span class='info-head'>[配架場所]</span>";
-            // if (d.place) {
-            //     buf += "<span class='info-data'>" + d.place + "</span>";
-            // } else {
-            //     buf += "<span class='info-data'> ― </span>";
-            // }
+            buf += "<span class='info-head'>[通知区分]</span>";
+            if (d.state) {
+                buf += "<span class='info-data'>" + d.state + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
+
+            buf += "<span class='info-head'>[事例分類]</span>";
+            if (d.place) {
+                buf += "<span class='info-data'>" + d.place + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
 
             buf += "</p>";
 
@@ -1683,81 +1891,6 @@ FullTextSearch.prototype = {
 
             buf += "</dl>";
             buf += "</div>";
-
-
-
-
-            // BMH 判例イメージ
-            buf   += "<div class='two columns thumbnail-block'>";
-
-            if (d.type == "") {
-                buf   += "<img class='thumbnail-img' src='images/common/noimage.gif' alt='画像はありません'>";
-            } else if (d.type == 'A') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_a.png' alt='A'>";
-            } else if (d.type == 'B') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_b.png' alt='A'>";
-            } else if (d.type == 'C') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_c.png' alt='A'>";
-            } else if (d.type == 'D') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_d.png' alt='A'>";
-            } else if (d.type == 'E') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_e.png' alt='A'>";
-            } else if (d.type == 'F') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_f.png' alt='A'>";
-            } else if (d.type == '-') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_etc.png' alt='A'>";
-            }
-            buf   += "</div>";
-
-
-
-
-
-            // BMH 判例イメージ
-            buf   += "<div class='two columns thumbnail-block'>";
-
-            if (d.state == "") {
-                buf   += "<img class='thumbnail-img' src='images/common/noimage.gif' alt='画像はありません'>";
-            } else if (d.state == 'A') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_a.png' alt='A'>";
-            } else if (d.state == 'B') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_b.png' alt='A'>";
-            } else if (d.state == 'C') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_c.png' alt='A'>";
-            } else if (d.state == 'D') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_d.png' alt='A'>";
-            } else if (d.state == 'E') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_e.png' alt='A'>";
-            } else if (d.state == 'F') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_f.png' alt='A'>";
-            } else if (d.state == '-') {
-                buf   += "<img class='thumbnail-img' src='images/common/hantei_etc.png' alt='A'>";
-            }
-            buf   += "</div>";
-
-
-
-
-
-
-
-            
-
-            // イメージを見せるコード
-            // buf   += "<div class='two columns thumbnail-block'>";
-
-            // if (d.image =="" || d.image =="noimage") {
-            //     buf   += "<img class='thumbnail-img' src='images/common/noimage.gif' alt='画像はありません'>";
-            // } else {
-            //     buf   += "<img class='thumbnail-img' src='images/" + d.image + "' alt=''>";
-            // }
-            // buf   += "</div>";
-
-
-
-
-
-
             buf += "</div>";
             buf += "<hr>";
 
@@ -1971,4 +2104,3 @@ FullTextSearch.prototype = {
         }
     }
 };
-

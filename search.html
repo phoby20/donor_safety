@@ -206,6 +206,24 @@
         }
         document.getElementById('sendKey3').value = allKeyword3;
 
+
+
+        
+        // case_place
+        var allKeyword4 = "";
+        var len4 = document.sitesearch.case_place.length;
+        if ((len4 === undefined) && (document.sitesearch.case_place.checked == true)) {
+            chkdata4[i] = document.sitesearch.case_place[i].value;
+            allKeyword4 = "　";
+        } else {
+            for (i = 0; i < len4; i++) {
+                if (document.sitesearch.case_place[i].checked) {
+                    allKeyword4 += document.sitesearch.case_place[i].value + "　";
+                }
+            }
+        }
+        document.getElementById('sendKey4').value = allKeyword4;
+
         
 
         return true;
@@ -260,12 +278,32 @@
                     <ul class="checkList upper">
                         <!-- <li><label><input type="button" id="SelectAllBtn" value="Select All"/></label></li> -->
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="緊急安全情報"><span> 緊急安全情報</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報\n"><span> 安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知"><span> 通知</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会通知"><span> 医療委員会通知</span></label></li>
                     </ul>
                 </div>
             </div>
+
+
+
+            <div class="row tr">
+                <div class="three columns th" style="height:76px;">
+                    <span>事例区分* (place)</span>
+                </div>
+                <div class="nine columns td">
+                    <ul class="checkList upper">
+                        <!-- <li><label><input type="button" id="SelectAllBtn" value="Select All"/></label></li> -->
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="ドナーの有害事象"><span> ドナーの有害事象</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="採取産物・採取バンク関連"><span> 採取産物・採取バンク関連</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="自己血"><span> 自己血</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="医療機器"><span> 医療機器</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="麻酔関連"><span> 麻酔関連</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="その他"><span> その他</span></label></li>
+                    </ul>
+                </div>
+            </div>
+
 
 
 
@@ -297,14 +335,14 @@
 
             <div class="row tr">
                 <div class="three columns th">
-                    <span>区分</span>
+                    <span>よく使うキーワード</span>
                 </div>
                 <div class="nine columns td keyword-list">
                     <!-- <p class="keyword-category">区分</p> -->
                     <ul class="checkList">
                         <li><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
-                        <li><label><input type="checkbox" name="chkBox" value="採取バック関連"><span> 採取バック関連</span></label></li>
+                        <li><label><input type="checkbox" name="chkBox" value="採取バンク関連"><span> 採取バンク関連</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="妊娠"><span> 妊娠</span></label></li>
                     </ul>
@@ -425,9 +463,10 @@
         <div class="btnArea">
             <button title="検索" type="submit" class="formbtn large" name="submit2" onclick="onSearchClick();">検　索</button>
         </div>
-        <!-- <input id="sendKey" type="hidden" name="keyword" value=""> -->
+        <input id="sendKey" type="hidden" name="keyword" value="">
         <input id="sendKey2" type="hidden" name="bmh" value="">
         <input id="sendKey3" type="hidden" name="pbsch" value="">
+        <input id="sendKey4" type="hidden" name="cases" value="">
     </form>
         <script type="text/javascript">
         //画面読み込み時

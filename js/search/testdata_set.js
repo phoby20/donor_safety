@@ -314,7 +314,7 @@ var data = [
     "type": "DLI",
     "quantity": "",
     "state": "医療委員会通知",
-    "place": "麻酔機器",
+    "place": "麻酔関連",
     "remarks": "入院等は不明、現段階では採取にあたっての判断はできない。ドナーは搬送先病院には入院せず、この後、採取施設を受診。",
     "image": "",
     "pdf": ""
@@ -334,7 +334,7 @@ var data = [
     "type": "DLI",
     "quantity": "",
     "state": "医療委員会通知",
-    "place": "麻酔機器",
+    "place": "麻酔関連",
     "remarks": "",
     "image": "",
     "pdf": ""
