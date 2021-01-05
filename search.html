@@ -142,16 +142,14 @@
             }
         }
         // alert(chkboxKeyword);
-        document.getElementById('keyword').value = chkboxKeyword;
+        document.getElementById('keywords').value = chkboxKeyword;
 
 
 
         // 前画面で入力されたキーワード
         inputedKeyword = document.getElementById('inputed-keyword').value;
         // 新たに入力されたキーワード
-        keyword = document.getElementById('keyword').value;
-
-        alert(keyword);
+        keyword = document.getElementById('keywords').value;
 
         if (inputedKeyword.length > 0) {
             if (keyword.length > 0) {
@@ -326,7 +324,7 @@
                     <span>キーワード追加入力</span>
                 </div>
                 <div class="nine columns td">
-                    <input class="keyword" name="keyword" type="text" id="keyword" value="" placeholder="キーワードを入力してください" />
+                    <input class="keyword" name="keyword" type="text" id="keywords" value="" placeholder="キーワードを入力してください" />
                     <button title="検索" type="submit" class="formbtn" name="submit1" onclick="return onSearchClick();">検　索</button>
                 </div>
             </div>
