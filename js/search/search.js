@@ -1432,12 +1432,17 @@ FullTextSearch.prototype = {
                     if (r3 && is_target3 && r3.index != -1) {
                         rg3 = this.dataset[i][d_key3[k]].match(reg_g3[j]);
                         // console.log(rg3);
+                        
                         rg_len3 += rg3.length;
                         rg_cnt3 += rg3.length * r3[0].length;
+                        // console.log(rg_len3);
                         if (rg_pos3 == null || rg_pos3 > r3.index) rg_pos3 = r3.index;
                         rg_pnt3 += d_pnt3[k] * rg3.length;
                         if (this.dataset[i].type == 'pdf') rg_pnt3 += d_pnt_pdf3;
-                        res3.push([r3, d_key3[k]]);
+                        if (r3.index != 2) {
+                            res3.push([r3, d_key3[k]]);
+                        }
+                        // res3.push([r3, d_key3[k]]);
                         chk3 = true;
                     }
                 }
