@@ -902,11 +902,15 @@ FullTextSearch.prototype = {
             } else {
                 reg3.push(/(.)/);
             }
-            // console.log(aimai_array3);
+            console.log(aimai_array3.includes("通知", "医療委員会通知"));
 
             if (aimai_array3.includes("安全情報", "緊急安全情報") == true) {
                 delete aimai_array3[0];
                 // aimai_array3[0] == '安全情報'
+
+                // `여기서 부터 확인해야 함 -------------------------01.05
+            } else if (aimai_array3.includes("通知", "医療委員会通知") == true) {
+                delete aimai_array3[1];
             }
 
             aimai_array3  = aimai_array3.filter(function(item) {
@@ -1008,11 +1012,7 @@ FullTextSearch.prototype = {
                         if (i == j) continue;
                     }
                     
-                    // if (tmp3.includes(aimai_array3[j]) == false) {
-                    //     tmp3.push(aimai_array3[j]);
-                    // }
                     tmp3.push(aimai_array3[j]);
-                    console.log(tmp3);
 
                     reg_s3[reg_s3.length] = {
                         reg3   : new RegExp(tmp3.join('')),    //joinで、
@@ -1029,9 +1029,9 @@ FullTextSearch.prototype = {
 
 
         
-        for (var g = 0; g < reg_s3.length; g++ ) {
-            console.log(reg_s3[g]);
-        }
+        // for (var g = 0; g < reg_s3.length; g++ ) {
+        //     console.log(reg_s3[g]);
+        // }
         // reg_s3  = reg_s3.filter(function(item) {
         //     return item !== null && item !== undefined && item !== '';
         // });
