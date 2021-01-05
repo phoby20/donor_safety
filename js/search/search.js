@@ -902,13 +902,13 @@ FullTextSearch.prototype = {
             } else {
                 reg3.push(/(.)/);
             }
-            console.log(aimai_array3.includes("通知", "医療委員会通知"));
+            // console.log(aimai_array3.includes("通知", "医療委員会通知"));
 
             if (aimai_array3.includes("安全情報", "緊急安全情報") == true) {
                 delete aimai_array3[0];
                 // aimai_array3[0] == '安全情報'
 
-                // `여기서 부터 확인해야 함 -------------------------01.05
+                // 여기서 부터 확인해야 함 -------------------------01.05
             } else if (aimai_array3.includes("通知", "医療委員会通知") == true) {
                 delete aimai_array3[1];
             }
@@ -916,7 +916,7 @@ FullTextSearch.prototype = {
             aimai_array3  = aimai_array3.filter(function(item) {
                 return item !== null && item !== undefined && item !== '';
             });
-            console.log(aimai_array3);
+            // console.log(aimai_array3);
 
 
 
@@ -1025,23 +1025,10 @@ FullTextSearch.prototype = {
             }
             // console.log(reg_g3);
         }
-        // console.log(reg_s3[0]);
-
-
-        
-        // for (var g = 0; g < reg_s3.length; g++ ) {
-        //     console.log(reg_s3[g]);
-        // }
-        // reg_s3  = reg_s3.filter(function(item) {
-        //     return item !== null && item !== undefined && item !== '';
-        // });
+        // console.log(reg_g3);
 
         
-        // console.log(reg_s3[0]);
-        // console.log(reg_s3[0].init == '安全情報');
 
-
-        
         // ------------ cases複数指定の場合 ------------
         if (aimai_array4.length > 1) {
             for (var i = 0, aimai_length4 = aimai_array4.length; i < aimai_length4; i++) {
@@ -1439,7 +1426,11 @@ FullTextSearch.prototype = {
                         if (rg_pos3 == null || rg_pos3 > r3.index) rg_pos3 = r3.index;
                         rg_pnt3 += d_pnt3[k] * rg3.length;
                         if (this.dataset[i].type == 'pdf') rg_pnt3 += d_pnt_pdf3;
-                        if (r3.index != 2) {
+
+                        // console.log(r3);
+
+
+                        if (r3.index == 0) {
                             res3.push([r3, d_key3[k]]);
                         }
                         // res3.push([r3, d_key3[k]]);
@@ -1748,8 +1739,8 @@ FullTextSearch.prototype = {
                     delete notduply_viewlist[ks];
                 }
             }
-            console.log('viewList :', viewList);
-            console.log('notduply_viewlist:', notduply_viewlist);
+            // console.log('viewList :', viewList);
+            // console.log('notduply_viewlist:', notduply_viewlist);
             
             if (notduply_viewlist.length != 0) {
                 // 보여주지 말아야 할 리스트에 있는지 확인해서 result에서 삭제하기
