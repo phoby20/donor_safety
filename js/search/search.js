@@ -1053,7 +1053,7 @@ FullTextSearch.prototype = {
 
 
 
-        var d_key = ['title','body','author','type'];
+        var d_key = ['title','body','author','type','secbody'];
 
         var d_key2 = ['type']; //BMH　検索時！
         var d_key3 = ['state']; //PBSCH　検索時！
