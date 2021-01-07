@@ -749,6 +749,7 @@ FullTextSearch.prototype = {
         //cases入力ありの場合
         if (cases != ""){
             query4= this.splitKeyword(cases);
+            // console.log(query4);
         }
 
 
@@ -948,6 +949,7 @@ FullTextSearch.prototype = {
             } else {
                 reg4.push(/(.)/);
             }
+            // console.log(aimai_array4);
 
 
 

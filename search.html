@@ -46,6 +46,17 @@
     // return true;
     // }
 
+    function splitKeyword (s)
+    {
+        // console.log(s);
+        s = s.replace(/　/g, " ");
+        s = s.replace(/\s+/g, " ");
+
+        s = s.split(" ");
+        // console.log(s);
+        return s;
+    }
+
 
 
     function GetQueryString()
@@ -75,54 +86,17 @@
             var query = window.location.search.substring(1);
             // クエリの区切り記号 (&) で文字列を配列に分割する
             var parameters = query.split('&');
+            // var h = 0;
             
 
             for (var i = 0; i < parameters.length; i++) {
-                
                 // パラメータ名とパラメータ値に分割する
                 var element = parameters[i].split('=');
                 var paramName = decodeURIComponent(element[0]);
                 var paramValue = decodeURIComponent(element[1]);
-                
-                // 사전을 만들되 value는 리스트 형태로 만들려고 함
-                if (paramName == 'chkBox_bmh') {
-                    res['chkBox_bmh'] = paramValue;
-                } else if (paramName == 'chkBox_pbsch') {
-                    res['chkBox_pbsch'] = paramValue;
-                } else if (paramName == 'case_place') {
-                    res['chkBox_pbsch'] = paramValue;
-                } else if (paramName == 'keyword') {
-                    res['keyword'] = paramValue;
-                } else if (paramName == 'yearfrom') {
-                    res['yearfrom'] = paramValue;
-                } else if (paramName == 'yearto') {
-                    res['yearto'] = paramValue;
-                } else if (paramName == 'hasimage') {
-                    res['hasimage'] = paramValue;
-                } else if (paramName == 'class1') {
-                    res['class1'] = paramValue;
-                } else if (paramName == 'class2') {
-                    res['class2'] = paramValue;
-                } else if (paramName == 'class3') {
-                    res['class3'] = paramValue;
-                } else if (paramName == 'refine1') {
-                    res['refine1'] = paramValue;
-                } else if (paramName == 'refine2') {
-                    res['refine2'] = paramValue;
-                } else if (paramName == 'submit2') {
-                    res['submit2'] = paramValue;
-                } else if (paramName == 'bmh') {
-                    res['bmh'] = paramValue;
-                } else if (paramName == 'pbsch') {
-                    res['pbsch'] = paramValue;
-                } else if (paramName == 'cases') {
-                    res['cases'] = paramValue;
-                }
                 res[paramName] = paramValue;
             }
-            // alert(res['case_place']);
         }
-        // alert(res['case_place']);
         return res;
     }
 
@@ -131,10 +105,13 @@
 
         var nowkeyword = result['keyword'];
 
-        var nowchkBox_bmh = result['chkBox_bmh'];
-        var nowchkBox_pbsch = result['chkBox_pbsch'];
-        var nowcase_place = result['case_place'];
+        var nowchkBox_bmh = result['bmh'];
+        var nowchkBox_pbsch = result['pbsch'];
+        var nowcase_place = result['cases'];
 
+        splitKeyword(nowchkBox_bmh);
+        splitKeyword(nowchkBox_pbsch);
+        splitKeyword(nowcase_place);
 
         var nowrefine1 = result['refine1'];
         var nowrefine2 = result['refine2'];
@@ -144,17 +121,18 @@
         var nowclass1 = result['class1'];
         var nowclass2 = result['class2'];
         var nowclass3 = result['class3'];
+
+        
         document.getElementById('inputed-keyword').value = nowkeyword;
-        // alert(result);
 
         for (i = 0; i < document.sitesearch.chkBox_bmh.length; i++) {
-            if (document.getElementsByName('chkBox_bmh')[i].value == nowchkBox_bmh) document.getElementsByName('chkBox_bmh')[i].checked = true;
+            if (nowchkBox_bmh.includes(document.getElementsByName('chkBox_bmh')[i].value)) document.getElementsByName('chkBox_bmh')[i].checked = true;
         };
         for (i = 0; i < document.sitesearch.chkBox_pbsch.length; i++) {
-            if (document.getElementsByName('chkBox_pbsch')[i].value == nowchkBox_pbsch) document.getElementsByName('chkBox_pbsch')[i].checked = true;
+            if (nowchkBox_pbsch.includes(document.getElementsByName('chkBox_pbsch')[i].value)) document.getElementsByName('chkBox_pbsch')[i].checked = true;
         };
         for (i = 0; i < document.sitesearch.case_place.length; i++) {
-            if (document.getElementsByName('case_place')[i].value == nowcase_place) document.getElementsByName('case_place')[i].checked = true;
+            if (nowcase_place.includes(document.getElementsByName('case_place')[i].value)) document.getElementsByName('case_place')[i].checked = true;
         };
 
 
@@ -332,7 +310,7 @@
             
             <div class="row tr"">
                 <div class="three columns th">
-                    <span>採取方法* (type)</span>
+                    <span>採取方法</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
@@ -348,7 +326,7 @@
 
             <div class="row tr">
                 <div class="three columns th">
-                    <span>通知区分* (state)</span>
+                    <span>通知区分</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
@@ -365,7 +343,7 @@
 
             <div class="row tr">
                 <div class="three columns th" style="height:76px;">
-                    <span>事例区分* (place)</span>
+                    <span>事例区分</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
