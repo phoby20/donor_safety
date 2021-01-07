@@ -109,9 +109,9 @@
         var nowchkBox_pbsch = result['pbsch'];
         var nowcase_place = result['cases'];
 
-        splitKeyword(nowchkBox_bmh);
-        splitKeyword(nowchkBox_pbsch);
-        splitKeyword(nowcase_place);
+        var nowchkBox_bmh = splitKeyword(nowchkBox_bmh);
+        var nowchkBox_pbsch = splitKeyword(nowchkBox_pbsch);
+        var nowcase_place = splitKeyword(nowcase_place);
 
         var nowrefine1 = result['refine1'];
         var nowrefine2 = result['refine2'];
@@ -121,6 +121,8 @@
         var nowclass1 = result['class1'];
         var nowclass2 = result['class2'];
         var nowclass3 = result['class3'];
+
+        console.log(nowchkBox_pbsch);
 
         
         document.getElementById('inputed-keyword').value = nowkeyword;
