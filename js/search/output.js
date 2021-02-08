@@ -51,7 +51,16 @@ function writeTxt(key){
     html += newData[0]['state'];
     html += '</td></tr><tr><th>事例分類</th><td>'
     html += newData[0]['place'];
+
+    html += '</td></tr><tr><th>PDF</th><td>'
+    html += "<a href='pdf/"
+    html += newData[0]['pdf'];
+    html += '.pdf'
+    html += "' style='text-decoration:none; color:white; background-color:#366ba8; padding:8px; border-radius:5px;'> PDFファイルを開く</a>"
+
+
     html += '</td></tr></table>';
+    
 
     html += "<div>　</div>";
     
@@ -72,6 +81,8 @@ function writeTxt(key){
     html += newData[0]['remarks'];
     html += '</td></tr><tr><th>別紙本文２</th><td>'
     html += newData[0]['secbody'];
+
+    
     //    html += '</td></tr><tr><th>旧資料番号</th><td>'
     //    html += newData[0]['oldDocNo'];
     //    html += '</td></tr><tr><th>画像</th><td>'
@@ -130,9 +141,12 @@ function writeTxt(key){
     // }
 
     // if( newData[0]['pdf'] ) {
-    //     html += '<br><br><button class="formbtn large" onclick="window.open(&quot;pdf/';
+    //     html += "<div style='font-size:50px;'>"
+    //     html += '<button class="formbtn large" onclick="window.open(&quot;pdf/';
     //     html += newData[0]['pdf'];
+    //     html += '.pdf'
     //     html += '&quot;, &quot;imageWindow&quot;, &quot;width=800&quot;, &quot;height=600&quot;)">PDFファイルを開く</button>';
+    //     html += '</div>'
     // }
 
     // /* MP3 */

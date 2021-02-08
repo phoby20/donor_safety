@@ -14,30 +14,30 @@
 <script type="text/javascript" src="js/class-select.js"></script>
 <script type="text/javascript" language="javascript">
 
-var ageArr = new Array(); //필터 내용을 저장하는 배열 
+var ageArr = new Array(); //필터 내용을 저장하는 배열
 var showFilterValue = document.getElementById("showFilter");
 
 //필터입력값 보여주기 위한 text
- //필터 내용을 저장하는 function 
+ //필터 내용을 저장하는 function
  function makeFilter(target){
      var ageVal = target.value; //check value
      var confirmCheck = target.checked; //check여부 확인
 
-     console.log("필터 선택값 : "+ageVal); 
+     console.log("필터 선택값 : "+ageVal);
      console.log("선택여부 : "+confirmCheck);
 
-    // check true 
+    // check true
     if(confirmCheck == true){
         console.log("check");
         ageArr.push(ageVal); // check value filter 배열에 입력
 
-    }else{ 
-        ageArr.splice(ageArr.indexOf(ageVal), 1); 
+    }else{
+        ageArr.splice(ageArr.indexOf(ageVal), 1);
         // check value filter 배열내용 삭제
 
-    } showFilterValue.value = ageArr; 
-    // textBox에 필터 배열 추가 
-    console.log("필터입력값 출력 : "+ageArr); 
+    } showFilterValue.value = ageArr;
+    // textBox에 필터 배열 추가
+    console.log("필터입력값 출력 : "+ageArr);
 }
 
 
@@ -56,7 +56,7 @@ var showFilterValue = document.getElementById("showFilter");
     //         }
     //     }
     // }
-    
+
 
     // 検索ボタン押下時処理
     function onSearchClick() {
@@ -68,7 +68,7 @@ var showFilterValue = document.getElementById("showFilter");
 
         // キーワード
         mainKeyword = document.forms.sitesearch.inkeyword.value;
-        
+
         var allKeyword = "";
         var len = document.sitesearch.chkBox.length;
         if ((len === undefined) && (document.sitesearch.chkBox.checked == true)) {
@@ -86,7 +86,7 @@ var showFilterValue = document.getElementById("showFilter");
         document.getElementById('sendKey').value = allKeyword;
 
 
-        
+
         // BMH
         // mainKeyword2 = document.forms.sitesearch.inkeyword.value;
         var allKeyword2 = "";
@@ -126,7 +126,7 @@ var showFilterValue = document.getElementById("showFilter");
 
 
 
-    
+
 
         // case_place
         var allKeyword4 = "";
@@ -142,10 +142,10 @@ var showFilterValue = document.getElementById("showFilter");
             }
         }
         document.getElementById('sendKey4').value = allKeyword4;
-        
+
             return true;
     }
-    
+
 
 
 
@@ -205,7 +205,7 @@ var showFilterValue = document.getElementById("showFilter");
 
 
             <div class="row tr"">
-                
+
                 <div class="three columns th">
                     <span>採取方法</span>
                 </div>
@@ -231,7 +231,7 @@ var showFilterValue = document.getElementById("showFilter");
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="緊急安全情報"><span> 緊急安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知"><span> 通知</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会通知"><span> 医療委員会通知</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会発出"><span> 医療委員会発出</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -270,7 +270,7 @@ var showFilterValue = document.getElementById("showFilter");
             </div>
 
 
-            
+
 
             <div class="row tr">
                 <div class="three columns th">
@@ -289,7 +289,7 @@ var showFilterValue = document.getElementById("showFilter");
             </div>
 
 
-            
+
 
 
             <!-- ここからは displayを noneに設定 -->
@@ -344,11 +344,11 @@ var showFilterValue = document.getElementById("showFilter");
                 </div>
             </div>
             <!-- ここまでが display none -->
-            
+
             <!-- ここまでが display none -->
 
 
-            
+
 
             <div class="row tr" style="display: none;">
                 <div class="three columns th">
@@ -361,7 +361,7 @@ var showFilterValue = document.getElementById("showFilter");
                             <select id="class1" name="class1">
                             </select>
                         </li>
-                        
+
                         <li>
                             <label for="class2">分類２：</label>
                             <select id="class2" name="class2">
@@ -379,7 +379,7 @@ var showFilterValue = document.getElementById("showFilter");
 
 
 
-            
+
 
 
             <!-- 以下は非表示 -->
