@@ -49,8 +49,11 @@ function writeTxt(key){
     html += newData[0]['type'];
     html += '</td></tr><tr><th>通知区分</th><td>'
     html += newData[0]['state'];
-    html += '</td></tr><tr><th>事例分類</th><td>'
-    html += newData[0]['place'];
+    if (newData[0]['place']) {
+        html += '</td></tr><tr><th>事例分類</th><td>'
+        html += newData[0]['place'];
+    }
+    
 
     html += '</td></tr><tr><th>PDF</th><td>'
     html += "<a href='pdf/"
@@ -67,21 +70,55 @@ function writeTxt(key){
     html += '<div class="clearFix resultWrapper"><table id="resultTable">';
     html += '</td></tr><tr><th>タイトル</th><td>'
     html += newData[0]['title'];
-    html += '</td></tr><tr><th>本文</th><td>'
+    html += '</td></tr><tr><th>本文①</th><td>'
     html += newData[0]['body'];
+    if (newData[0]['body2']) {
+        html += '</td></tr><tr><th>内容②</th><td>'
+        html += newData[0]['body2'];
+    }
+    if (newData[0]['body3']) {
+        html += '</td></tr><tr><th>内容③</th><td>'
+    html += newData[0]['body3'];
+    }
 
     html += '</td></tr></table>';
 
     html += "<div>　</div>";
 
     html += '<div class="clearFix resultWrapper"><table id="resultTable">';
-    html += '</td></tr><tr><th>別紙タイトル</th><td>'
-    html += newData[0]['subkey'];
-    html += '</td></tr><tr><th>別紙本文１</th><td>'
-    html += newData[0]['remarks'];
-    html += '</td></tr><tr><th>別紙本文２</th><td>'
-    html += newData[0]['secbody'];
+    if (newData[0]['subkey']) {
+        html += '</td></tr><tr><th>別紙タイトル</th><td>'
+        html += newData[0]['subkey'];
+    }
+    if (newData[0]['remarks']) {
+        html += '</td></tr><tr><th>別紙内容①</th><td>'
+        html += newData[0]['remarks'];
+    }
+    if (newData[0]['secbody']) {
+        html += '</td></tr><tr><th>別紙内容②</th><td>'
+        html += newData[0]['secbody'];
+    }
+    if (newData[0]['secbody2']) {
+        html += '</td></tr><tr><th>別紙内容③</th><td>'
+        html += newData[0]['secbody2'];
+    }
+    html += '</td></tr></table>';
 
+    html += "<div>　</div>";
+
+    html += '<div class="clearFix resultWrapper"><table id="resultTable">';
+    if (newData[0]['trititle']) {
+        html += '</td></tr><tr><th>別紙タイトル②</th><td>'
+        html += newData[0]['trititle'];
+    }
+    if (newData[0]['tribody']) {
+        html += '</td></tr><tr><th>別紙内容②-1</th><td>'
+        html += newData[0]['tribody'];
+    }
+    if (newData[0]['tribody2']) {
+        html += '</td></tr><tr><th>別紙内容②-2</th><td>'
+        html += newData[0]['tribody2'];
+    }
     
     //    html += '</td></tr><tr><th>旧資料番号</th><td>'
     //    html += newData[0]['oldDocNo'];

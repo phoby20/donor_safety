@@ -1055,7 +1055,7 @@ FullTextSearch.prototype = {
 
 
 
-        var d_key = ['title','body','author','type','secbody'];
+        var d_key = ['title','body', 'body2','body3', 'author', 'receiver', 'type', 'remarks', 'secbody', 'secbody2', 'trititle', 'tribody', 'tribody2'];
 
         var d_key2 = ['type']; //BMH　検索時！
         var d_key3 = ['state']; //PBSCH　検索時！
@@ -2119,7 +2119,10 @@ FullTextSearch.prototype = {
 
             buf += (d.type == 'pdf') ? '<dt class="pdf">' : '<dt>';
             var href = 'result.html?itemkey=' + d.itemkey;    //itemkeyに直した
-            buf += '<a href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
+            buf += '<a ';
+            buf += "style='font-size:22px;'"
+            buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
+            // buf += '<a href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
 
             if (idx_len_title.length > 0) {
 
@@ -2195,11 +2198,13 @@ FullTextSearch.prototype = {
                 buf += "<span class='info-data'> ― </span>";
             }
 
-            buf += "<span class='info-head'>[事例分類]</span>";
+            
             if (d.place) {
+                buf += "<span class='info-head'>[事例分類]</span>";
                 buf += "<span class='info-data'>" + d.place + "</span>";
-            } else {
-                buf += "<span class='info-data'> ― </span>";
+            // } else {
+            //     buf += "<span class='info-head'>[事例分類]</span>";
+            //     buf += "<span class='info-data'> ― </span>";
             }
 
             buf += "</p>";

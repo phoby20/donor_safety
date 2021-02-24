@@ -196,7 +196,7 @@ var showFilterValue = document.getElementById("showFilter");
 <div id="topsearch">
     <div id="mv">
         <div class="mv-title-block">
-            <h2 class="mv-title" style="color: white; font-weight: bold;">安全情報データベース</h2>
+            <h2 class="mv-title" style="color: rgb(61, 61, 61); font-weight: bold;">安全情報データベース</h2>
         </div>
     </div>
     <form id="sitesearch" name="sitesearch" action="search.html" method="get">
@@ -204,7 +204,7 @@ var showFilterValue = document.getElementById("showFilter");
         <div class="form-block">
 
 
-            <div class="row tr"">
+            <div class="row tr">
 
                 <div class="three columns th">
                     <span>採取方法</span>
@@ -212,9 +212,9 @@ var showFilterValue = document.getElementById("showFilter");
                 <div class="nine columns td">
                     <ul class="checkList upper">
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="未梢血幹細胞採取"><span> 未梢血幹細胞採取</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="その他"><span> その他</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血幹細胞採取"><span> 末梢血幹細胞採取</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="造血幹細胞移植"><span> 造血幹細胞移植</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="造血幹細胞採取"><span> 造血幹細胞採取</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -222,22 +222,24 @@ var showFilterValue = document.getElementById("showFilter");
 
 
             <div class="row tr">
-                <div class="three columns th">
+                <div class="three columns th" style="height: 76px;">
                     <span>通知区分</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
                         <!-- <li><label><input type="button" id="SelectAllBtn" value="Select All"/></label></li> -->
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="アンケート"><span> アンケート</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="緊急安全情報"><span> 緊急安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知"><span> 通知</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会発出"><span> 医療委員会発出</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知文"><span> 通知文</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="報告書"><span> 報告書</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報（海外）"><span> 安全情報（海外）</span></label></li>
                     </ul>
                 </div>
             </div>
 
 
-            <div class="row tr">
+            <div class="row tr" style="display: none;">
                 <div class="three columns th" style="height:76px;">
                     <span>事例区分</span>
                 </div>
@@ -265,7 +267,6 @@ var showFilterValue = document.getElementById("showFilter");
                 </div>
                 <div class="nine columns td">
                     <input size="20" type="text" id="inkeyword" class="keyword" placeholder="キーワードを入力してください" />
-                    <button title="検索" type="submit" class="formbtn" name="submit1" onclick="return onSearchClick();">検　索</button>
                 </div>
             </div>
 
@@ -279,7 +280,7 @@ var showFilterValue = document.getElementById("showFilter");
                 <div class="nine columns td keyword-list">
                     <!-- <p class="keyword-category">区分</p> -->
                     <ul class="checkList">
-                        <li><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
+                        <li style="padding: 0px;"><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="採取バック関連"><span> 採取バック関連</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
