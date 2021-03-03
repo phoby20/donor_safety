@@ -154,15 +154,15 @@
 
         document.getElementById('inputed-keyword').value = nowkeyword;
 
-        for (i = 0; i < document.sitesearch.chkBox_bmh.length; i++) {
-            if (nowchkBox_bmh.includes(document.getElementsByName('chkBox_bmh')[i].value)) document.getElementsByName('chkBox_bmh')[i].checked = true;
-        };
-        for (i = 0; i < document.sitesearch.chkBox_pbsch.length; i++) {
-            if (nowchkBox_pbsch.includes(document.getElementsByName('chkBox_pbsch')[i].value)) document.getElementsByName('chkBox_pbsch')[i].checked = true;
-        };
-        for (i = 0; i < document.sitesearch.case_place.length; i++) {
-            if (nowcase_place.includes(document.getElementsByName('case_place')[i].value)) document.getElementsByName('case_place')[i].checked = true;
-        };
+        // for (i = 0; i < document.sitesearch.chkBox_bmh.length; i++) {
+        //     if (nowchkBox_bmh.includes(document.getElementsByName('chkBox_bmh')[i].value)) document.getElementsByName('chkBox_bmh')[i].checked = true;
+        // };
+        // for (i = 0; i < document.sitesearch.chkBox_pbsch.length; i++) {
+        //     if (nowchkBox_pbsch.includes(document.getElementsByName('chkBox_pbsch')[i].value)) document.getElementsByName('chkBox_pbsch')[i].checked = true;
+        // };
+        // for (i = 0; i < document.sitesearch.case_place.length; i++) {
+        //     if (nowcase_place.includes(document.getElementsByName('case_place')[i].value)) document.getElementsByName('case_place')[i].checked = true;
+        // };
 
 
         for (i = 0; i < document.sitesearch.refine1.length; i++) {
@@ -223,9 +223,12 @@
 
             }
         }
-        if (chkboxKeyword) {
-            document.getElementById('keyword').value = chkboxKeyword;
-        }
+        // if (chkboxKeyword) {
+        //     document.getElementById('keyword').value = chkboxKeyword;
+        // }
+
+        // これをチェック解除すると、「区分」検索後、「キーワード」検索をすると、おかしくなる　--------　(?)　解除しても問題なく表示されるので、解除(2021-3-3:?)
+        // document.getElementById('newkeyword').value += chkboxKeyword;
 
 
 
@@ -233,18 +236,25 @@
         // 前画面で入力されたキーワード
         inputedKeyword = document.getElementById('inputed-keyword').value;
         // 新たに入力されたキーワード
-        keyword = document.getElementById('keyword').value;
+        // keyword = document.getElementById('keyword').value;
         // alert(keyword);
 
-        if (inputedKeyword.length > 0) {
-            if (keyword.length > 0) {
+        //if (inputedKeyword.length > 0) {
+        //    if (keyword.length > 0) {
+//
+        //        document.getElementById('keyword').value += "　";
+        //    } else if (chkboxKeyword) {
+        //        document.getElementById('keyword').value += chkboxKeyword;
+        //    }
+        //    document.getElementById('keyword').value += inputedKeyword;
+        //}
 
-                document.getElementById('keyword').value += "　";
-            } else if (chkboxKeyword) {
-                document.getElementById('keyword').value += chkboxKeyword;
-            }
-            document.getElementById('keyword').value += inputedKeyword;
-        }
+        // --------------------検索初期化のため、下記のコードを新しく追加（2021-3-3）--------------------
+
+
+
+
+        // ----------------------------------------------------------------------------------------------------
 
 
 
@@ -364,7 +374,7 @@
 
 
 
-            <div class="row tr">
+            <div class="row tr" style="display: none;">
                 <div class="three columns th">
                     <span>現在のキーワード</span>
                 </div>
@@ -389,15 +399,15 @@
 
 
             <div class="row tr">
+
                 <div class="three columns th">
                     <span>採取方法</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
                         <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血幹細胞採取"><span> 末梢血幹細胞採取</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="造血幹細胞移植"><span> 造血幹細胞移植</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="造血幹細胞採取"><span> 造血幹細胞採取</span></label></li>
+                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
+                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
                         <li style="width: 20%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
                     </ul>
                 </div>
@@ -411,12 +421,11 @@
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="アンケート"><span> アンケート</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="緊急安全情報"><span> 緊急安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知文"><span> 通知文</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="報告書"><span> 報告書</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報（海外）"><span> 安全情報（海外）</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会より発出"><span> 医療委員会より発出</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医師宛通知文"><span> 医師宛通知文</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> All</span></label></li>
                     </ul>
                 </div>
