@@ -1,3 +1,4 @@
+
 function FullTextSearch()
 {
     var charset;
@@ -36,12 +37,13 @@ function FullTextSearch()
     var test;        //test
 
     this.charset    = 'UTF-8';
-    this.max        = 50;
+    this.max        = 3;
 
     this.param_name = 'keyword';
     this.param_name2 = 'bmh'; //bmh 検索
     this.param_name3 = 'pbsch'; //pbsch 検索
     this.param_name4 = 'cases'; //case_place 検索
+    this.param_name5 = 'pageNum'; //case_place 検索
 
     this.param_name_refine1 = 'refine1';    //絞り込み用パラメータ（仮）
     this.param_name_refine2 = 'refine2';    //絞り込み用パラメータ（仮）
@@ -51,6 +53,7 @@ function FullTextSearch()
     this.param_name_class1 = 'class1';    //絞り込み用パラメータ（仮）
     this.param_name_class2 = 'class2';    //絞り込み用パラメータ（仮）
     this.param_name_class3 = 'class3';    //絞り込み用パラメータ（仮）
+    this.param_name_pageNum = 'pageNum';    //絞り込み用パラメータ（仮）
     this.refine2     = true;
     this.zenhan     = true;
 
@@ -103,7 +106,7 @@ function FullTextSearch()
 
     this.caption = {
         // stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（10件ずつ表示しています）',
-        stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（1ページあたり最大50件表示します）',
+        stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（1ページあたり最大100件表示します）',
         stat_not   : '{%TOTAL%}件中、一致する情報はありません。',
         notfound   : '指定された条件では見つかりませんでした。',
         error      : '検索結果は0件です。',
@@ -124,6 +127,7 @@ FullTextSearch.prototype = {
         this.bmh   = keyword; //bmh 検索
         this.pbsch   = keyword;  //pbsch 検索
         this.case_place   = keyword;  //case_place 検索
+        this.pageNum   = keyword;  //case_place 検索
 
         this.param_refine1   = keyword;
         this.param_refine2   = keyword;
@@ -138,6 +142,7 @@ FullTextSearch.prototype = {
         this.bmh = this.getParam2(this.bmh); //bmh 検索
         this.pbsch = this.getParam3(this.pbsch);  //pbsch 検索
         this.case_place = this.getParam4(this.case_place);  //case_place 検索
+        this.pageNum = this.getParam5(this.pageNum);  //case_place 検索
         
 
         this.refine1 = this.getParam_refine1(this.param_refine1);        //絞り込みキーワード取り出し
@@ -258,6 +263,31 @@ FullTextSearch.prototype = {
         return this.splitKeyword(s);
     },
 
+            
+    // cases
+    getParam5 : function (s)
+    {
+        if (!s) return null;
+        s = s.replace(/\+/g, " ");
+        var rg = new RegExp('[\?&]' + this.param_name5 + '\=([^&]*)');
+        if (s.match(rg)) s = RegExp.$1;
+
+        switch (this.charset) {
+        case 'UTF-8':
+            s = UnescapeUTF8(s);
+            break;
+        case 'SJIS':
+            s = UnescapeSJIS(s);
+            break;
+        case 'EUC':
+            s = UnescapeEUCJP(s);
+            break;
+        }
+
+        return this.splitKeyword(s);
+    },
+
+        
 
 
 
@@ -707,6 +737,7 @@ FullTextSearch.prototype = {
 
         this.set_st(re);
 
+
         this.pagenavi(re, this.nv1);
         this.pagenavi(re, this.nv2);
         this.view(re);
@@ -1055,7 +1086,7 @@ FullTextSearch.prototype = {
 
 
 
-        var d_key = ['title','body', 'body2','body3', 'author', 'receiver', 'type', 'remarks', 'secbody', 'secbody2', 'trititle', 'tribody', 'tribody2'];
+        var d_key = ['title','body', 'body2','body3', 'author', 'receiver', 'subkey', 'remarks', 'secbody', 'secbody2', 'trititle', 'tribody', 'tribody2', 'create_date', 'year'];
 
         var d_key2 = ['type']; //BMH　検索時！
         var d_key3 = ['state', 'state2']; //PBSCH　検索時！
@@ -1832,11 +1863,11 @@ FullTextSearch.prototype = {
         // });
 
         // console.log('result_original : ', result_original)
-        console.log('result : ', result)
-        console.log('採取方法 (type) result2 : ', result2)
-        // console.log('result2 : ', result2.length)
-        console.log('通知区分 (state) result3 : ', result3)
-        console.log('事例区分 (place)result4 : ', result4)
+        // console.log('result : ', result)
+        // console.log('採取方法 (type) result2 : ', result2)
+        // // console.log('result2 : ', result2.length)
+        // console.log('通知区分 (state) result3 : ', result3)
+        // console.log('事例区分 (place)result4 : ', result4)
 
 
         // 採取方法 (type)만 선택한 경우
@@ -2054,12 +2085,18 @@ FullTextSearch.prototype = {
     ,
     view : function (result, offset)
     {
+        var pageNumInput = document.getElementById('pageNum');
+        var pageNum = document.getElementById('pageNum');
+        console.log('pageNum : ', pageNum.value);
         if (!offset) offset = 1;
         if (!result) {
+            // console.log('test!!!!!!!!!!');
             result = this.last.reverse();
         } else {
+            
             this.last = result;
         }
+        // console.log(this.last);
 
         if (result.length == 0) {
             if (this.lastquery != '') {
@@ -2076,7 +2113,10 @@ FullTextSearch.prototype = {
             return;
         }
 
-        var r     = result.reverse();
+
+   
+        // console.log(result);
+        var r     = result.reverse()
         var count = 0;
 
         this.re.innerHTML = "";
@@ -2101,6 +2141,7 @@ FullTextSearch.prototype = {
             var rg_pnt        = r[i][7];
             var d             = this.dataset[num];
 
+
             buf   += "<div class='row'>";
 
             // buf   += "<div class='two columns thumbnail-block'>";
@@ -2117,11 +2158,16 @@ FullTextSearch.prototype = {
 
             buf   += "<dl>";
 
-            buf += (d.type == 'pdf') ? '<dt class="pdf">' : '<dt>';
+            // buf += (d.type == 'pdf') ? '<dt class="pdf">' : '<dt>';
             var href = 'result.html?itemkey=' + d.itemkey;    //itemkeyに直した
             buf += '<a ';
-            buf += "style='font-size:22px;'"
-            buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
+            buf += "style='font-size:18px; font-weight:bold; padding:20px;'"
+            if (pageNumInput.value > 0) {
+                buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=' + pageNumInput.value +'\'; page_add(); return false;">';
+            } else {
+                buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=0' +'\'; page_add(); return false;">';
+            }
+            
             // buf += '<a href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
 
             if (idx_len_title.length > 0) {
@@ -2132,6 +2178,7 @@ FullTextSearch.prototype = {
                 buf += (d.title || "無題");
             }
             buf += "</a>";
+            
             if (d.type == 'pdf') {
                 buf += this.caption.result_pdf;
             }
@@ -2147,13 +2194,34 @@ FullTextSearch.prototype = {
             //     buf += "<p class=" + '"age"'+ ">"+ d.age +"</p>";
             // }
 
-            buf += "<p class='itemkey'>";
-            buf += "<span class='itemkey-head'>[資料番号]</span>";
+            buf += "<p class='itemkey' style=' margin-top:10px;'>";
+            buf += "<span class='itemkey-head'>発出日</span>";
             if (d.itemkey) {
-                buf += "<span class='itemkey-data'>" + d.itemkey + "</span>";
+                buf += "<span class='itemkey-data'>" + d.create_date + "</span>";
             } else {
                 buf += "<span class='itemkey-data'> ― </span>";
             }
+
+            
+            buf += "<span class='info-head'>採取方法</span>";
+            if (d.type) {
+                buf += "<span class='info-data'>" + d.type + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
+
+
+            buf += "<span class='info-head'>通知区分</span>";
+            if (d.type) {
+                buf += "<span class='info-data'>" + d.state + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
+
+
+
+
+
             buf += "</p>";
 
             buf += "<p class='info'>";
@@ -2165,13 +2233,12 @@ FullTextSearch.prototype = {
             //     buf += "<span class='info-data'> ― </span>";
             // }
 
-            buf += "<span class='info-head'>[採取方法]</span>";
-
-            if (d.type) {
-                buf += "<span class='info-data'>" + d.type + "</span>";
-            } else {
-                buf += "<span class='info-data'> ― </span>";
-            }
+            // buf += "<span class='info-head'>[採取方法]</span>";
+            // if (d.type) {
+            //     buf += "<span class='info-data'>" + d.itemkey + "</span>";
+            // } else {
+            //     buf += "<span class='info-data'> ― </span>";
+            // }
 
             // buf += "<span class='info-head'>[大分類]</span>";
             // if (d.class1) {
@@ -2191,12 +2258,12 @@ FullTextSearch.prototype = {
             // } else {
             //     buf += "<span class='info-data'> ― </span>";
             // }
-            buf += "<span class='info-head'>[通知区分]</span>";
-            if (d.state) {
-                buf += "<span class='info-data'>" + d.state + "</span>";
-            } else {
-                buf += "<span class='info-data'> ― </span>";
-            }
+            // buf += "<span class='info-head'>[通知区分]</span>";
+            // if (d.state) {
+            //     buf += "<span class='info-data'>" + d.state + "</span>";
+            // } else {
+            //     buf += "<span class='info-data'> ― </span>";
+            // }
 
             
             if (d.place) {
@@ -2210,9 +2277,10 @@ FullTextSearch.prototype = {
             buf += "</p>";
 
 
-            // console.log(idx_len_body);
+            // console.log(d.body.length);
             if (idx_len_body.length > 0) {
-                buf += this.snippet(d.body, idx_len_body);
+                // buf += this.snippet(d.body, idx_len_body);
+                buf += d.body.substr(0, this.result_prefix + this.result_suffix); // <-- 위의 코드를 넣는 대신 이 코드를 넣으면 검색결과화면에서 본문의 프레뷰를 2줄로 줄여서 보여줄수 있음. 클라이언트의 요청으로 해당코드로 변경 (2021/3/19)
             } else {
                 buf += d.body.substr(0, this.result_prefix + this.result_suffix);
             }
@@ -2221,7 +2289,7 @@ FullTextSearch.prototype = {
             buf += "</dl>";
             buf += "</div>";
             buf += "</div>";
-            buf += "<hr>";
+            buf += "<hr style='margin-top:10px; margin-bottom:10px;'>";
 
             this.re.innerHTML += buf;
         }
@@ -2307,15 +2375,18 @@ FullTextSearch.prototype = {
     ,
     pagenavi : function (result, nv)
     {
+        // console.log('nv : ', nv);
         var len = result.length;
-        var ct  = Math.ceil(len / this.max);
+        var ct  = Math.ceil(len / this.max); // 표시 해야 할 페이지 수
         var buf = [];
-
-        var max_index = 10;        //上部のページ切り替え部分の数、表示件数でないので注意。
-
+        var max_index = 10;        //上部のページ切り替え部分の数、表示件数でないので注意。 한번에 표시할 페이지 번호 갯수
         var obj = this;
+        var pageNumInput = document.getElementById('pageNum');
+        
+        
 
         nv.innerHTML = '';
+        // ------------------ 딱히 중요하지 않은 부분 ---------------------
         if (ct > max_index) {
             var span = document.createElement('span');
             var text = document.createTextNode(this.caption.navi_first);
@@ -2330,15 +2401,23 @@ FullTextSearch.prototype = {
             span.appendChild(text);
             nv.appendChild(span);
         }
+        // ------------------ 딱히 중요하지 않은 부분 끝---------------------
 
+        // console.log(pageNumInput.value);
+        // if (pageNumInput) {
+        //     console.log(pageNumInput);
+        // }
         for (var i = 1, group = 1; i <= ct; i++) {
             var span = document.createElement('span');
             var text = document.createTextNode(i);
+            
             span.setAttribute('index', i);
             span.setAttribute('group', group);
             span.onclick = function ()
             {
                 var index = Number(this.getAttribute('index'));
+                console.log(index);
+                pageNumInput.value = index;
                 obj.view(null, index);
                 obj.sw(index);
             };

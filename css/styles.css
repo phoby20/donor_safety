@@ -1,13 +1,16 @@
 body {
     background-color: #FFFFFF;
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 /* Default link styling */
 a:link,
 a:visited {
-    color: #254e9b;
+    /* color: #254e9b; */
+    color: #0039d4;
     text-decoration:none;
+    
 }
 a:hover, a:focus {
     text-decoration:underline;

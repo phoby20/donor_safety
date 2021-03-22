@@ -8,6 +8,11 @@
 <link href="css/skeleton-custom.css" rel="stylesheet" type="text/css">
 <link href="css/styles.css" rel="stylesheet" type="text/css">
 <link href="css/page.css" rel="stylesheet" type="text/css">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/class-select.js"></script>
@@ -16,6 +21,11 @@
 <script type="text/javascript" src="js/search/search.js"></script>
 <script type="text/javascript" src="js/search/searchInit.js"></script>
 <script type="text/javascript">
+
+    
+
+
+
 
 
 
@@ -149,7 +159,7 @@
         var nowclass2 = result['class2'];
         var nowclass3 = result['class3'];
 
-        console.log(nowchkBox_pbsch);
+        // console.log(nowchkBox_pbsch);
 
 
         document.getElementById('inputed-keyword').value = nowkeyword;
@@ -223,9 +233,9 @@
 
             }
         }
-        // if (chkboxKeyword) {
-        //     document.getElementById('keyword').value = chkboxKeyword;
-        // }
+        if (chkboxKeyword) {
+            document.getElementById('keyword').value = chkboxKeyword;
+        }
 
         // これをチェック解除すると、「区分」検索後、「キーワード」検索をすると、おかしくなる　--------　(?)　解除しても問題なく表示されるので、解除(2021-3-3:?)
         // document.getElementById('newkeyword').value += chkboxKeyword;
@@ -235,6 +245,7 @@
 
         // 前画面で入力されたキーワード
         inputedKeyword = document.getElementById('inputed-keyword').value;
+        // console.log(inputedKeyword);
         // 新たに入力されたキーワード
         // keyword = document.getElementById('keyword').value;
         // alert(keyword);
@@ -322,6 +333,7 @@
         return true;
     }
 
+
 </script>
 </head>
 
@@ -388,7 +400,7 @@
 
 
             <div class="row tr">
-                <div class="three columns th">
+                <div class="three columns th" style="padding-right: 0px; height: 54px;">
                     <span>キーワード追加入力</span>
                 </div>
                 <div class="nine columns td">
@@ -405,10 +417,10 @@
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -477,7 +489,7 @@
 
 
             <div class="row tr">
-                <div class="three columns th">
+                <div class="three columns th" style="padding-right: 0px;">
                     <span>よく使うキーワード</span>
                 </div>
                 <div class="nine columns td keyword-list">
@@ -610,7 +622,9 @@
         <input id="sendKey2" type="hidden" name="bmh" value="">
         <input id="sendKey3" type="hidden" name="pbsch" value="">
         <input id="sendKey4" type="hidden" name="cases" value="">
+        <input id="pageNum" type="hidden" name="pageNum" value="">
     </form>
+    
         <script type="text/javascript">
         //画面読み込み時
         $(document).ready(function(){

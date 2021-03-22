@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>詳細</title>
 <script type="text/javascript" src="js/search/output.js"></script>
+
 <script type="text/javascript" src="js/search/testdata_set.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/colorbox/jquery.colorbox-min.js"></script>
@@ -13,6 +14,9 @@
 <link href="css/page.css" rel="stylesheet" type="text/css">
 <link href="css/result.css" rel="stylesheet" type="text/css">
 <link href="js/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+
+<!-- 페이징 기억을 위해 새로 추가함 2021.03.22 -->
+<script type="text/javascript" src="js/search/search.js"></script>
 
 </head>
 
@@ -34,11 +38,16 @@
     <!--table -->
 
     <div class="bottomBtnBlock">
-        <button class="formbtn large normal" onClick="history.back(); return false;">前のページにもどる</button>
+        <button class="formbtn large normal" onClick="history.back(url); return false;">前のページにもどる</button>
     </div>
     <div id="footer"> Copyright &copy; JMDP. All Rights Reserved. </div>
 
 </div>
+
+<script>
+    var url = new URL(window.location.href);
+    
+</script>
 <script>
 $(document).ready(function(){
     $(".btn-audio").colorbox({inline:true, width:"50%", height:"30%"});

@@ -35,14 +35,14 @@
 }
 
 #resultTable th{
-    background-color:#006e99;
+    background-color:#009ea3;
     padding-left:25px;
     width: 150px;
     color: #fff;
 }
 
 #resultTable tr:nth-child(odd) th{
-    background-color:#005780;
+    background-color:#007175;
 }
 
 #resultTable {

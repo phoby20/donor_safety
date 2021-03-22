@@ -9,10 +9,23 @@
 <link href="css/styles.css" rel="stylesheet" type="text/css">
 <link href="css/page.css" rel="stylesheet" type="text/css">
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/class-select.js"></script>
 <script type="text/javascript" language="javascript">
+
+    // 브라우져가 로드되면 모든 설정을 초기화
+    function rel() {
+        if (window.name != "any") {
+          location.reload();
+          window.name = "any";
+        } else {
+          window.name = "";
+        }
+      }
 
 var ageArr = new Array(); //필터 내용을 저장하는 배열
 var showFilterValue = document.getElementById("showFilter");
@@ -45,9 +58,9 @@ var showFilterValue = document.getElementById("showFilter");
 
      //chkBox_bmh 全体選択機能
      window.onload = function(){
-        var hobbyAllBtn = document.getElementById('bmhSelectAll');
-        hobbyAllBtn.addEventListener('click', function(){
-            if (hobbyAllBtn.checked == true) {
+        var hobbyAllBtn1 = document.getElementById('bmhSelectAll');
+        hobbyAllBtn1.addEventListener('click', function(){
+            if (hobbyAllBtn1.checked == true) {
                checkedAll('chkBox_bmh');
             } else {
                NotcheckedAll('chkBox_bmh');
@@ -216,7 +229,7 @@ var showFilterValue = document.getElementById("showFilter");
 </script>
 </head>
 
-<body>
+<body onLoad="rel()">
 <div id="head-bar">
     <div class="inner">
         <div class="head-title-block">
@@ -246,10 +259,10 @@ var showFilterValue = document.getElementById("showFilter");
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 20%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -272,6 +285,7 @@ var showFilterValue = document.getElementById("showFilter");
                 </div>
             </div>
             <script language="JavaScript" type="text/javascript">
+                var hobbyAllBtn1 = document.getElementById('bmhSelectAll');
                 var hobbyAllBtn = document.getElementById('pbschSelectAll');
                 hobbyAllBtn.addEventListener('click', function(){
                     if (hobbyAllBtn.checked == true) {
@@ -291,6 +305,25 @@ var showFilterValue = document.getElementById("showFilter");
                         document.getElementsByName(checkType)[i].checked = false;
                     }
                 }
+                
+                hobbyAllBtn1.addEventListener('click', function(){
+                    if (hobbyAllBtn1.checked == true) {
+                    checkedAll('chkBox_bmh');
+                    } else {
+                    NotcheckedAll('chkBox_bmh');
+                    }
+                    
+                });
+                function checkedAll(checkType){
+                    for(var i = 0; i < document.getElementsByName(checkType).length; i++){
+                        document.getElementsByName(checkType)[i].checked = true;
+                    }
+                }
+                function NotcheckedAll(checkType){
+                for(var i = 0; i < document.getElementsByName(checkType).length; i++){
+                    document.getElementsByName(checkType)[i].checked = false;
+                }
+            }
             </script>
 
 
@@ -316,8 +349,8 @@ var showFilterValue = document.getElementById("showFilter");
 
 
 
-            <div class="row tr">
-                <div class="three columns th">
+            <div class="row tr"">
+                <div class="three columns th" style="height: 54px;">
                     <span>キーワード入力</span><!-- <span class="required">必須</span> -->
                 </div>
                 <div class="nine columns td">
@@ -329,7 +362,7 @@ var showFilterValue = document.getElementById("showFilter");
 
 
             <div class="row tr">
-                <div class="three columns th">
+                <div class="three columns th" style="padding-right: 0px;">
                     <span>よく使うキーワード</span>
                 </div>
                 <div class="nine columns td keyword-list">
@@ -497,11 +530,11 @@ var showFilterValue = document.getElementById("showFilter");
 
     <div class="hr"></div>
     <div id="memo">
-        <h4>検索方法について</h4>
+        <!-- <h4>検索方法について</h4>
         <ul>
-            <!-- <li>採取方法および通知区分、事例区分は<strong style="color: red;">必須項目</strong>です。</li> -->
+            <li>採取方法および通知区分、事例区分は<strong style="color: red;">必須項目</strong>です。</li>
             <li>複数のキーワードを含む検索（AND検索）が可能です。単語と単語の間にスペースを開けて検索して下さい。</li>
-        </ul>
+        </ul> -->
     </div>
     <div id="footer"> Copyright &copy; JMDP. All Rights Reserved. </div>
 </div>

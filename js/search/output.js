@@ -28,6 +28,7 @@ function GetQueryString()
 var result = GetQueryString();
 
 function writeTxt(key){
+    
     // キー名が複数ある場合に対応するため、念のためキー名を指定する
     var mm = result[key];
     // オブジェクトの配列をフィルタリング http://lifelog.main.jp/wordpress/?p=2557
@@ -38,8 +39,8 @@ function writeTxt(key){
     var html = '';
 
     html += '<div class="clearFix resultWrapper"><table id="resultTable">';
-    html += '<tr><th>資料番号</th><td>';
-    html += newData[0]['itemkey'];
+    html += '<tr><th>発出日</th><td>';
+    html += newData[0]['create_date'];
     html += '</td></tr><tr><th>差出人</th><td>'
     html += newData[0]['author'];
     html += '</td></tr><tr><th>受取人</th><td>'
@@ -59,7 +60,7 @@ function writeTxt(key){
     html += "<a href='pdf/"
     html += newData[0]['pdf'];
     html += '.pdf'
-    html += "' style='text-decoration:none; color:white; background-color:#366ba8; padding:8px; border-radius:5px;'> PDFファイルを開く</a>"
+    html += "' style='text-decoration:none; color:white; background-color:#00c4cc; padding:8px; border-radius:5px;'> PDFファイルを開く</a>"
 
 
     html += '</td></tr></table>';
