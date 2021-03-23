@@ -37,7 +37,7 @@ function FullTextSearch()
     var test;        //test
 
     this.charset    = 'UTF-8';
-    this.max        = 3;
+    this.max        = 50;
 
     this.param_name = 'keyword';
     this.param_name2 = 'bmh'; //bmh 検索
@@ -106,7 +106,7 @@ function FullTextSearch()
 
     this.caption = {
         // stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（10件ずつ表示しています）',
-        stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（1ページあたり最大100件表示します）',
+        stat       : '{%TOTAL%}件中、{%RESULT%}件の情報が見つかりました。（1ページあたり最大50件表示します）',
         stat_not   : '{%TOTAL%}件中、一致する情報はありません。',
         notfound   : '指定された条件では見つかりませんでした。',
         error      : '検索結果は0件です。',
