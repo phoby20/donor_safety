@@ -60,7 +60,8 @@ function writeTxt(key){
     html += "<a href='pdf/"
     html += newData[0]['pdf'];
     html += '.pdf'
-    html += "' style='text-decoration:none; color:white; background-color:#00c4cc; padding:8px; border-radius:5px;'> PDFファイルを開く</a>"
+    // html += "' style='text-decoration:none; color:white; background-color:#00c4cc; padding:8px; border-radius:5px;'> PDFファイルを開く</a>"
+    html += "' style='text-decoration:none; color:white; background-color:#00c4cc; padding:8px; border-radius:5px;' target='_blank';> PDFファイルを開く</a>" // PDF를 새탭에서 열어야만 상세페이지 탭을 닫을 수 있음. 위의 코드 대신 이렇게 변경 2021-03-23
 
 
     html += '</td></tr></table>';
