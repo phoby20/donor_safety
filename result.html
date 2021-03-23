@@ -16,8 +16,7 @@
 <link href="js/colorbox/colorbox.css" rel="stylesheet" type="text/css">
 
 <!-- 페이징 기억을 위해 새로 추가함 2021.03.22 -->
-<script type="text/javascript" src="js/search/search.js"></script>
-
+<script type="text/javascript" src="js/search/custom.js"></script>
 </head>
 
 <body>
@@ -38,18 +37,46 @@
     <!--table -->
 
     <div class="bottomBtnBlock">
-        <button class="formbtn large normal" onClick="history.back(url); return false;">前のページにもどる</button>
+        <!-- <button class="formbtn large normal" onClick="history.back(url); return false;">前のページにもどる</button> -->
+        <button class="formbtn large normal" onClick="javascript:self.close();">閉じる</button>
+        <!-- <button class="formbtn large normal" onClick="history.pushState(null, null,  'http://127.0.0.1:5500/search.html?yearfrom=null&yearto=null&hasimage=null&class1=null&class2=null&class3=null&refine1=null&refine2=null&submit2=&keyword=&bmh=&pbsch=&cases='); return false;">前のページにもどる</button> -->
     </div>
     <div id="footer"> Copyright &copy; JMDP. All Rights Reserved. </div>
 
 </div>
 
 <script>
-    var url = new URL(window.location.href);
     
-</script>
-<script>
-$(document).ready(function(){
+   function GetQueryString()
+   // 参考 http://so-zou.jp/web-app/tech/programming/javascript/sample/get.htm
+    {
+        var res = {};
+        if (1 < window.location.search.length) {
+            // 最初の1文字 (?記号) を除いた文字列を取得する
+            var query = window.location.search.substring(1);
+            // クエリの区切り記号 (&) で文字列を配列に分割する
+            var parameters = query.split('&');
+            // var h = 0;
+
+
+            for (var i = 0; i < parameters.length; i++) {
+                // パラメータ名とパラメータ値に分割する
+                var element = parameters[i].split('=');
+                var paramName = decodeURIComponent(element[0]);
+                var paramValue = decodeURIComponent(element[1]);
+                res[paramName] = paramValue;
+            }
+        }
+        return res;
+    }
+
+    var result = GetQueryString();
+    var nowkeyword = result['pageNum'];
+
+    var url = new URL(window.location.href);
+    rollback(url);
+    console.log(nowkeyword);
+    $(document).ready(function(){
     $(".btn-audio").colorbox({inline:true, width:"50%", height:"30%"});
     $(".btn-video").colorbox({inline:true, width:"50%"});
 });

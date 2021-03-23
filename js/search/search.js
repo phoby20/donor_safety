@@ -121,6 +121,7 @@ function FullTextSearch()
 FullTextSearch.prototype = {
     init : function (fullTextData, keyword)
     {
+        
         // console.log(keyword);
         this.dataset = fullTextData;
         this.param   = keyword;
@@ -158,6 +159,7 @@ FullTextSearch.prototype = {
     
     initElement : function (stat, navi1, navi2, result)
     {
+        
         this.st = this.getElement(stat);
         this.re = this.getElement(result);
         this.nv1 = this.getElement(navi1);
@@ -722,6 +724,7 @@ FullTextSearch.prototype = {
     do_find : function (keyword,bmh,pbsch,cases,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
     {
         // console.log(keyword);
+        
 
         if (this.lastquery == keyword) return;
         if (this.lastquery == bmh) return; //bmh 検索時
@@ -745,6 +748,7 @@ FullTextSearch.prototype = {
     ,
     find : function (keyword,bmh,pbsch,cases,refine1,refine2,yearfrom,yearto,hasimage,class1,class2,class3)
     {
+        
         // console.log(pbsch);
         if (!refine1) return [];
         if (!refine2) return [];
@@ -2085,9 +2089,10 @@ FullTextSearch.prototype = {
     ,
     view : function (result, offset)
     {
+        
         var pageNumInput = document.getElementById('pageNum');
         var pageNum = document.getElementById('pageNum');
-        console.log('pageNum : ', pageNum.value);
+        // console.log('page_num : ', page_num);
         if (!offset) offset = 1;
         if (!result) {
             // console.log('test!!!!!!!!!!');
@@ -2161,11 +2166,14 @@ FullTextSearch.prototype = {
             // buf += (d.type == 'pdf') ? '<dt class="pdf">' : '<dt>';
             var href = 'result.html?itemkey=' + d.itemkey;    //itemkeyに直した
             buf += '<a ';
-            buf += "style='font-size:18px; font-weight:bold; padding:20px;'"
+            buf += ''
+            buf += "style='font-size:18px; font-weight:bold; padding:20px;' "
             if (pageNumInput.value > 0) {
-                buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=' + pageNumInput.value +'\'; page_add(); return false;">';
+                // buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=' + pageNumInput.value +'\'; page_add(); return false;">';
+                buf += 'href="' + href + '" target="_blank";>'; // 새탭으로 열기
             } else {
-                buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=0' +'\'; page_add(); return false;">';
+                // buf += 'href="javascript:void(0);" onclick="location.href=\'' + href + '&pageNum=1' +'\'; page_add(); return false;">';
+                buf += 'href="' + href + '" target="_blank";>'; // 새탭으로 열기
             }
             
             // buf += '<a href="javascript:void(0);" onclick="location.href=\'' + href + '\';return false;">';
@@ -2511,4 +2519,9 @@ FullTextSearch.prototype = {
             span[i].className = ( String(span[i].getAttribute('index')) == String(t) ? "selected" : "");
         }
     }
+    ,
+    rollback : function(e) {
+        alert(e);
+    }
 };
+
