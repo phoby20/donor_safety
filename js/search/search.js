@@ -1090,7 +1090,7 @@ FullTextSearch.prototype = {
 
 
 
-        var d_key = ['title','body', 'body2','body3', 'author', 'receiver', 'subkey', 'remarks', 'secbody', 'secbody2', 'trititle', 'tribody', 'tribody2', 'create_date', 'year'];
+        var d_key = ['title','body', 'body2','body3', 'body4', 'body5', 'author', 'receiver', 'subkey', 'remarks', 'secbody', 'secbody2', 'trititle', 'tribody', 'tribody2', 'create_date', 'year'];
 
         var d_key2 = ['type']; //BMH　検索時！
         var d_key3 = ['state', 'state2']; //PBSCH　検索時！

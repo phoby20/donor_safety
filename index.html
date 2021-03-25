@@ -254,7 +254,7 @@ var showFilterValue = document.getElementById("showFilter");
 
             <div class="row tr">
 
-                <div class="three columns th">
+                <div class="three columns th" style="height: 76px;">
                     <span>採取方法</span>
                 </div>
                 <div class="nine columns td">
@@ -262,7 +262,8 @@ var showFilterValue = document.getElementById("showFilter");
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="その他"><span> その他</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> 全て</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -279,8 +280,8 @@ var showFilterValue = document.getElementById("showFilter");
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知文"><span> 通知文</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会より発出"><span> 医療委員会より発出</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医師宛通知文"><span> 医師宛通知文</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <!-- <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医師宛通知文"><span> 医師宛通知文</span></label></li> -->
+                        <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> 全て</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -370,7 +371,6 @@ var showFilterValue = document.getElementById("showFilter");
                     <ul class="checkList">
                         <li style="padding: 0px;"><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
-                        <li><label><input type="checkbox" name="chkBox" value="採取バック関連"><span> 採取バック関連</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="妊娠"><span> 妊娠</span></label></li>
                     </ul>
@@ -520,6 +520,7 @@ var showFilterValue = document.getElementById("showFilter");
 
         <div class="btnArea">
             <button title="検索" type="submit" class="formbtn large" name="submit2" onclick="onSearchClick();">検　索</button>
+            <button title="クリア" type="button" class="clearbtn large" onClick="rel();">クリア</button>
         </div>
         <input id="sendKey" type="hidden" name="keyword" value="">
         <input id="sendKey2" type="hidden" name="bmh" value="">
@@ -530,6 +531,7 @@ var showFilterValue = document.getElementById("showFilter");
 
     <div class="hr"></div>
     <div id="memo">
+        <a href="https://www.jshct.com/modules/facility/index.php?content_id=15#donor01">血縁ドナー 重篤な有害事象一覧 ></a>
         <!-- <h4>検索方法について</h4>
         <ul>
             <li>採取方法および通知区分、事例区分は<strong style="color: red;">必須項目</strong>です。</li>

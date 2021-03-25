@@ -385,19 +385,6 @@
 
 
 
-            <div class="row tr" style="display: none;">
-                <div class="three columns th">
-                    <span>現在のキーワード</span>
-                </div>
-                <div class="nine columns td">
-                    <input class="keyword" name="inputed-keyword" type="text" id="inputed-keyword" value="" disabled />
-                    <button title="クリア" type="button" class="formbtn normal" onClick="onClearClick();">クリア</button>
-                </div>
-            </div>
-
-
-
-
             <div class="row tr">
                 <div class="three columns th" style="padding-right: 0px; height: 54px;">
                     <span>キーワード追加入力</span>
@@ -411,7 +398,7 @@
 
             <div class="row tr">
 
-                <div class="three columns th">
+                <div class="three columns th" style="height: 76px;">
                     <span>採取方法</span>
                 </div>
                 <div class="nine columns td">
@@ -419,7 +406,8 @@
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="その他"><span> その他</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> 全て</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -437,7 +425,7 @@
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知文"><span> 通知文</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会より発出"><span> 医療委員会より発出</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医師宛通知文"><span> 医師宛通知文</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> All</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> 全て</span></label></li>
                     </ul>
                 </div>
             </div>
@@ -496,7 +484,7 @@
                     <ul class="checkList">
                         <li style="padding: 0px;"><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
-                        <li><label><input type="checkbox" name="chkBox" value="採取バンク関連"><span> 採取バンク関連</span></label></li>
+                        <!-- <li><label><input type="checkbox" name="chkBox" value="採取バンク関連"><span> 採取バンク関連</span></label></li> -->
                         <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
                         <li><label><input type="checkbox" name="chkBox" value="妊娠"><span> 妊娠</span></label></li>
                     </ul>
@@ -611,11 +599,29 @@
                 </div>
             </div>
 
+
+
+            
+
+            <div class="row tr" style="display: none;">
+                <div class="three columns th">
+                    <span>現在のキーワード</span>
+                </div>
+                <div class="nine columns td">
+                    <input class="keyword" name="inputed-keyword" type="text" id="inputed-keyword" value="" disabled />
+                    <button title="クリア" type="button" class="formbtn normal" onClick="onClearClick();">クリア</button>
+                </div>
+            </div>
+
+
+
+
         </div>
         <!-- /.form-block -->
 
         <div class="btnArea">
             <button title="検索" type="submit" class="formbtn large" name="submit2" onclick="onSearchClick();">検　索</button>
+            <button title="クリア" type="button" class="clearbtn large" onClick="rel();">クリア</button>
         </div>
         <!-- <input id="sendKey" type="hidden" name="keyword" value=""> -->
         <input id="sendKey2" type="hidden" name="bmh" value="">
