@@ -1914,10 +1914,10 @@ FullTextSearch.prototype = {
 
 
 
-        // console.log('2result : ', result)
-        // console.log('2result2 : ', result2)
-        // console.log('2result3 : ', result3)
-        // console.log('2result4 : ', result4)
+        console.log('2result : ', result)
+        console.log('2result2 : ', result2)
+        console.log('2result3 : ', result3)
+        console.log('2result4 : ', result4)
 
 
 
