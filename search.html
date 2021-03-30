@@ -386,8 +386,26 @@
 
 
             <div class="row tr">
+                <div class="three columns th" style="height: 76px;">
+                    <span>採取方法</span>
+                </div>
+                <div class="nine columns td">
+                    <ul class="checkList upper">
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血幹細胞採取</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="その他"><span> その他</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> 全て</span></label></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            
+
+            <div class="row tr">
                 <div class="three columns th" style="padding-right: 0px; height: 54px;">
-                    <span>キーワード追加入力</span>
+                    <span>キーワード入力</span>
                 </div>
                 <div class="nine columns td">
                     <input class="keyword" name="keyword" type="text" id="keyword" value="" placeholder="キーワードを入力してください" />
@@ -396,21 +414,25 @@
 
 
 
-            <div class="row tr">
 
-                <div class="three columns th" style="height: 76px;">
-                    <span>採取方法</span>
+
+
+            <div class="row tr">
+                <div class="three columns th" style="padding-right: 0px;">
+                    <span>よく使うキーワード</span>
                 </div>
-                <div class="nine columns td">
-                    <ul class="checkList upper">
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="骨髄採取"><span> 骨髄採取</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="末梢血"><span> 末梢血</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="DLI"><span> DLI</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_bmh" value="その他"><span> その他</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" id="bmhSelectAll" name="SelectAll"><span> 全て</span></label></li>
+                <div class="nine columns td keyword-list">
+                    <!-- <p class="keyword-category">区分</p> -->
+                    <ul class="checkList">
+                        <li style="padding: 0px;"><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
+                        <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
+                        <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
+                        <li><label><input type="checkbox" name="chkBox" value="妊娠"><span> 妊娠</span></label></li>
+                        <li><label><input type="checkbox" name="chkBox" value="死亡"><span> 死亡</span></label></li>
                     </ul>
                 </div>
             </div>
+
 
 
 
@@ -422,8 +444,8 @@
                     <ul class="checkList upper">
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="緊急安全情報"><span> 緊急安全情報</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="安全情報"><span> 安全情報</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知文"><span> 通知文</span></label></li>
-                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会より発出"><span> 医療委員会より発出</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="通知"><span> 通知</span></label></li>
+                        <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医療委員会より発出"><span> 医療委員会通知</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" name="chkBox_pbsch" value="医師宛通知文"><span> 医師宛通知文</span></label></li>
                         <li style="width: 25%;"><label><input type="checkbox" id="pbschSelectAll" name="SelectAll"><span> 全て</span></label></li>
                     </ul>
@@ -453,15 +475,15 @@
 
 
 
-            <div class="row tr" style="display: none;">
+            <div class="row tr">
                 <div class="three columns th" style="height:76px;">
-                    <span>事例区分</span>
+                    <span>事例分類</span>
                 </div>
                 <div class="nine columns td">
                     <ul class="checkList upper">
                         <!-- <li><label><input type="button" id="SelectAllBtn" value="Select All"/></label></li> -->
                         <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="ドナーの有害事象"><span> ドナーの有害事象</span></label></li>
-                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="採取産物・採取バンク関連"><span> 採取産物・採取バンク関連</span></label></li>
+                        <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="採取産物・採取バッグ関連"><span> 採取産物・採取バッグ関連</span></label></li>
                         <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="自己血"><span> 自己血</span></label></li>
                         <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="医療機器"><span> 医療機器</span></label></li>
                         <li style="width: 33%;"><label><input type="checkbox" name="case_place" value="麻酔関連"><span> 麻酔関連</span></label></li>
@@ -470,26 +492,6 @@
                 </div>
             </div>
 
-
-
-
-
-
-            <div class="row tr">
-                <div class="three columns th" style="padding-right: 0px;">
-                    <span>よく使うキーワード</span>
-                </div>
-                <div class="nine columns td keyword-list">
-                    <!-- <p class="keyword-category">区分</p> -->
-                    <ul class="checkList">
-                        <li style="padding: 0px;"><label><input type="checkbox" name="chkBox" value="出血"><span> 出血</span></label></li>
-                        <li><label><input type="checkbox" name="chkBox" value="アレルギー"><span> アレルギー</span></label></li>
-                        <!-- <li><label><input type="checkbox" name="chkBox" value="採取バンク関連"><span> 採取バンク関連</span></label></li> -->
-                        <li><label><input type="checkbox" name="chkBox" value="カテーテル"><span> カテーテル</span></label></li>
-                        <li><label><input type="checkbox" name="chkBox" value="妊娠"><span> 妊娠</span></label></li>
-                    </ul>
-                </div>
-            </div>
 
 
             <div class="row tr" style="display: none;">

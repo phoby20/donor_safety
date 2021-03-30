@@ -2220,12 +2220,21 @@ FullTextSearch.prototype = {
 
 
             buf += "<span class='info-head'>通知区分</span>";
-            if (d.type) {
+            if (d.state) {
                 buf += "<span class='info-data'>" + d.state + "</span>";
             } else {
                 buf += "<span class='info-data'> ― </span>";
             }
 
+
+
+
+            buf += "<span class='info-head'>事例分類</span>";
+            if (d.place) {
+                buf += "<span class='info-data'>" + d.place + "</span>";
+            } else {
+                buf += "<span class='info-data'> ― </span>";
+            }
 
 
 
@@ -2274,13 +2283,13 @@ FullTextSearch.prototype = {
             // }
 
             
-            if (d.place) {
-                buf += "<span class='info-head'>[事例分類]</span>";
-                buf += "<span class='info-data'>" + d.place + "</span>";
+            // if (d.place) {
+            //     buf += "<span class='info-head'>[事例分類]</span>";
+            //     buf += "<span class='info-data'>" + d.place + "</span>";
             // } else {
             //     buf += "<span class='info-head'>[事例分類]</span>";
             //     buf += "<span class='info-data'> ― </span>";
-            }
+            // }
 
             buf += "</p>";
 
